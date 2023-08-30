@@ -10,7 +10,8 @@ var color_scheme = [
 
 var CANVAS_SIZE = 600; // defined in css
 var grid = 60; // spacing between circles
-var CIRCLES_PER_ROW = 6; // rows & columns
+var CIRCLES_PER_ROW = 9; // rows & columns
+var CIRCLES_PER_COLUMN = 9;
 var linked_list = new DoublyList(); // linked list of selected dots
 var lockLine = false; // if line should be snapped to a dot
 var currentCircle; // current circle that was hovered over
@@ -32,7 +33,7 @@ $(document).ready(function () {
     fabric.Object.prototype.transparentCorners = false;
 
     // create grid
-    for (var i = 0; i < CIRCLES_PER_ROW; i++) {
+    for (var i = 0; i < CIRCLES_PER_COLUMN; i++) {
 
         for (var n = 0; n < CIRCLES_PER_ROW; n++) {
             var random_color = Math.floor(Math.random() * (color_scheme.length - 0)) + 0;
@@ -65,7 +66,7 @@ $(document).ready(function () {
 
             // Line exists as soon as user begins dragging
             // Snaps line to a circle that is hovered over, this can only occur when the user is dragging so isDown needs to be true
-            if (line && !gameOver) {
+            if (line) {
 
                 if (e.target.getFill() == line.getStroke() && isDown) {
 
@@ -235,54 +236,54 @@ $(document).ready(function () {
 
 
     // Timer and Score Calculator
-    setInterval(function () {
-        var timeLeft = parseInt($('.dyn-time').text());
-        timeLeft = timeLeft - 1;
+    // setInterval(function () {
+    //     var timeLeft = parseInt($('.dyn-time').text());
+    //     timeLeft = timeLeft - 1;
 
-        if (timeLeft == 5) {
-            $('.dyn-time').addClass("blink");
-        }
-        if (timeLeft <= 0) {
-            $('.dyn-time').text("0");
-            $('.dyn-alert').text("Game Over!");
-            $('.dyn-alert').addClass("blink");
-            $('.dyn-time').removeClass("blink");
-            $('.reveal').addClass("show");
-            gameOver = true;
-        } else {
-            $('.dyn-time').text(timeLeft);
-        }
+    //     if (timeLeft == 5) {
+    //         $('.dyn-time').addClass("blink");
+    //     }
+    //     if (timeLeft <= 0) {
+    //         $('.dyn-time').text("0");
+    //         $('.dyn-alert').text("Game Over!");
+    //         $('.dyn-alert').addClass("blink");
+    //         $('.dyn-time').removeClass("blink");
+    //         $('.reveal').addClass("show");
+    //         gameOver = true;
+    //     } else {
+    //         $('.dyn-time').text(timeLeft);
+    //     }
 
-    }, 1000);
+    // }, 1000);
 
 });
 
 function initModal() {
     // Get the modal
-    var modal = document.getElementById('myModal');
+    // var modal = document.getElementById('myModal');
 
-    // Get the button that opens the modal
-    var btn = document.getElementById("btnHelp");
+    // // Get the button that opens the modal
+    // var btn = document.getElementById("btnHelp");
 
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+    // // Get the <span> element that closes the modal
+    // var span = document.getElementsByClassName("close")[0];
 
-    // When the user clicks on the button, open the modal
-    btn.onclick = function () {
-        modal.style.display = "block";
-    }
+    // // When the user clicks on the button, open the modal
+    // btn.onclick = function () {
+    //     modal.style.display = "block";
+    // }
 
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
-        modal.style.display = "none";
-    }
+    // // When the user clicks on <span> (x), close the modal
+    // span.onclick = function () {
+    //     modal.style.display = "none";
+    // }
 
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
+    // // When the user clicks anywhere outside of the modal, close it
+    // window.onclick = function (event) {
+    //     if (event.target == modal) {
+    //         modal.style.display = "none";
+    //     }
+    // }
 }
 
 function shiftDotsDown(activeDotsColumns) {
@@ -395,7 +396,7 @@ function removeSelectedDots(canvas) {
         }
     });
 
-    if (linked_list._length > 1 && !gameOver) updateScore(linked_list._length);
+    if (linked_list._length > 1) updateScore(linked_list._length);
     lineExists = false;
     linked_list = new DoublyList();
     return coordsToGenerateDots;

@@ -28,8 +28,8 @@ body {
 #canv-cont {
     display: inline-block;
     margin: auto;
-    width: 400px;
-    height: 500px;
+    width: 1920px;
+    height: 1080px;
     margin-left: 31vw;
 }
 
@@ -102,7 +102,7 @@ footer {
     text-align: center;
     font-family: "Montserrat";
     font-weight: 300;
-    color: white;
+    color: black;
 }
 
 footer a {
